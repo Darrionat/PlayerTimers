@@ -1,0 +1,18 @@
+prefix:
+  enabled: true
+  prefix: '&7[&6PlayerTimers&7]&f '
+errors:
+  onlyPlayers: '&cOnly players can send that command!'
+  noPermission: '&cYou do not have the permission %permission%!'
+  playerOffline: '&c%player% is not online!'
+  noTimer: '&cCannot stop a timer since %player% does not have one!'
+  hasTimer: '&cCannot start a timer since %player% already has one!'
+messages:
+  timerStart: '&aStarted the timer for %player%'
+  timerStop: '&cStopped the timer for %player%'
+commandMessages:
+  baseMessages:
+    - '&7[&6PlayerTimers&7] &6%version% &7Author: &6Darrionat'
+  help:
+    start: '&6/timer start [player] &7- Starts a timer for a player'
+    stop: '&6/timer stop [player] &7- Stops a timer for a player'

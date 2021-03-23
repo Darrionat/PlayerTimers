@@ -1,0 +1,11 @@
+name: PlayerTimers
+author: Darrionat
+main: me.darrionat.playertimers.PlayerTimersPlugin
+description: A simple plugin that saves the times by player
+version: 1.0.0
+softdepend: [PlaceholderAPI]
+api-version: 1.13
+
+commands:
+  timer:
+    usage: /<command> <start/stop> <player>
