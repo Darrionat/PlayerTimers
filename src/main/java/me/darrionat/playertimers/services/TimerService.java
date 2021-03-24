@@ -51,4 +51,25 @@ public class TimerService {
 		timesRepo.savePlayerTime(uuid, timer.getDuration());
 		return timer;
 	}
+
+	/**
+	 * Cancels the player's timer
+	 * 
+	 * @param uuid the {@code UUID} of the player
+	 */
+	public void cancelTimer(UUID uuid) {
+		if (!playerHasTimer(uuid))
+			throw new IllegalStateException("Cannot cancel timer if player doesn't have timer");
+		activeTimers.remove(uuid);
+	}
+
+	/**
+	 * Clears the saved times in the data config.
+	 * <p>
+	 * This will reset the entire file.
+	 */
+	public void resetAllRecordedTimes() {
+		for (UUID uuid : timesRepo.getPlayersWithTimes())
+			timesRepo.clearPlayerTimes(uuid);
+	}
 }

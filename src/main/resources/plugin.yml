@@ -8,4 +8,6 @@ api-version: 1.13
 
 commands:
   timer:
-    usage: /<command> <start/stop> <player>
+    usage: /<command> <start/stop/cancel> <player>
+  resettimes:
+    usage: /<command>

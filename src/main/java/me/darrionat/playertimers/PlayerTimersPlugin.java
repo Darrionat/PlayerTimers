@@ -2,6 +2,7 @@ package me.darrionat.playertimers;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import me.darrionat.playertimers.commands.ResetTimesCommand;
 import me.darrionat.playertimers.commands.TimerCommand;
 import me.darrionat.playertimers.repositories.FileRepository;
 import me.darrionat.playertimers.repositories.TimesConfigRepository;
@@ -30,6 +31,7 @@ public class PlayerTimersPlugin extends JavaPlugin {
 		timerService = bootstrapper.getTimerService();
 
 		new TimerCommand(this);
+		new ResetTimesCommand(this);
 	}
 
 	@Override

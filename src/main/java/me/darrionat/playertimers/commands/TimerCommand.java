@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 
 import me.darrionat.playertimers.PlayerTimersPlugin;
 import me.darrionat.playertimers.commands.subcommands.SubCommand;
+import me.darrionat.playertimers.commands.subcommands.TimerCancel;
 import me.darrionat.playertimers.commands.subcommands.TimerStart;
 import me.darrionat.playertimers.commands.subcommands.TimerStop;
 import me.darrionat.playertimers.interfaces.Heritable;
@@ -23,6 +24,7 @@ public class TimerCommand extends BaseCommand implements Heritable {
 		messageService = plugin.getMessageService();
 		subcommands.add(new TimerStart(this));
 		subcommands.add(new TimerStop(this));
+		subcommands.add(new TimerCancel(this));
 	}
 
 	@Override

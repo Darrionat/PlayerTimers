@@ -30,6 +30,11 @@ public class TimesConfigRepository {
 		return players;
 	}
 
+	public void clearPlayerTimes(UUID uuid) {
+		timesConfig.set(uuid.toString(), null);
+		fileRepository.saveConfigFile(FileRepository.TIMES, timesConfig);
+	}
+
 	public List<PlayerTimer> getAllSavedTimes() {
 		List<PlayerTimer> times = new ArrayList<PlayerTimer>();
 
