@@ -16,7 +16,7 @@ public class TimerStop extends SubCommand {
 
 	@Override
 	public int getRequiredArgs() {
-		return 2;
+		return 3;
 	}
 
 	@Override
@@ -37,9 +37,17 @@ public class TimerStop extends SubCommand {
 			return;
 		}
 
+		int id;
+		try {
+			id = Integer.parseInt(args[2]);
+		} catch (NumberFormatException exe) {
+			messageService.notANumberErr(sender);
+			return;
+		}
+
 		UUID uuid = target.getUniqueId();
-		if (timerService.playerHasTimer(uuid)) {
-			timerService.stopPlayerTimer(uuid);
+		if (timerService.playerHasTimer(uuid, id)) {
+			timerService.stopPlayerTimer(uuid, id);
 			messageService.sendTimerStop(sender, target);
 		} else {
 			messageService.playerNoTimerErr(sender, target);

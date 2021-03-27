@@ -20,8 +20,8 @@ public class TimerService {
 	 * @param uuid the {@code UUID} of the player
 	 * @return returns {@code true} if the player has an active {@code PlayerTimer}
 	 */
-	public boolean playerHasTimer(UUID uuid) {
-		return activeTimers.containsKey(uuid);
+	public boolean playerHasTimer(UUID uuid, int id) {
+		return activeTimers.containsKey(uuid) && activeTimers.get(uuid).getId() == id;
 	}
 
 	/**
@@ -30,10 +30,10 @@ public class TimerService {
 	 * @param uuid the {@code UUID} of the player
 	 * @throws IllegalStateException thrown when the player has a timer
 	 */
-	public void startPlayerTimer(UUID uuid) {
-		if (playerHasTimer(uuid))
+	public void startPlayerTimer(UUID uuid, int id) {
+		if (playerHasTimer(uuid, id))
 			throw new IllegalStateException("Cannot start timer if player has timer");
-		activeTimers.put(uuid, new PlayerTimer(uuid));
+		activeTimers.put(uuid, new PlayerTimer(uuid, id));
 	}
 
 	/**
@@ -43,12 +43,12 @@ public class TimerService {
 	 * @return returns the {@code PlayerTimer} that was stopped
 	 * @throws IllegalStateException thrown when the player does not have a timer
 	 */
-	public PlayerTimer stopPlayerTimer(UUID uuid) {
-		if (!playerHasTimer(uuid))
+	public PlayerTimer stopPlayerTimer(UUID uuid, int id) {
+		if (!playerHasTimer(uuid, id))
 			throw new IllegalStateException("Cannot stop timer if player does not have timer");
 
 		PlayerTimer timer = activeTimers.remove(uuid).stop();
-		timesRepo.savePlayerTime(uuid, timer.getDuration());
+		timesRepo.savePlayerTime(timer);
 		return timer;
 	}
 
@@ -57,8 +57,8 @@ public class TimerService {
 	 * 
 	 * @param uuid the {@code UUID} of the player
 	 */
-	public void cancelTimer(UUID uuid) {
-		if (!playerHasTimer(uuid))
+	public void cancelTimer(UUID uuid, int id) {
+		if (!playerHasTimer(uuid, id))
 			throw new IllegalStateException("Cannot cancel timer if player doesn't have timer");
 		activeTimers.remove(uuid);
 	}

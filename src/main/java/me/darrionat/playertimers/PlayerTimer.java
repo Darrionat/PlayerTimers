@@ -4,6 +4,7 @@ import java.util.UUID;
 
 public class PlayerTimer {
 	private UUID uuid;
+	private int id;
 	private long start = -1;
 	private long end = -1;
 	private long duration = -1;
@@ -13,8 +14,9 @@ public class PlayerTimer {
 	 * 
 	 * @param p the player
 	 */
-	public PlayerTimer(UUID uuid) {
+	public PlayerTimer(UUID uuid, int id) {
 		this.uuid = uuid;
+		this.id = id;
 		this.start = System.currentTimeMillis();
 	}
 
@@ -24,8 +26,9 @@ public class PlayerTimer {
 	 * @param p        the player
 	 * @param duration the duration of the timer
 	 */
-	public PlayerTimer(UUID uuid, long duration) {
+	public PlayerTimer(UUID uuid, int id, long duration) {
 		this.uuid = uuid;
+		this.id = id;
 		this.duration = duration;
 	}
 
@@ -73,5 +76,9 @@ public class PlayerTimer {
 		if (duration == -1)
 			duration = end - start;
 		return duration;
+	}
+
+	public int getId() {
+		return this.id;
 	}
 }

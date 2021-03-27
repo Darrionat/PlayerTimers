@@ -7,6 +7,7 @@ errors:
   playerOffline: '&c%player% is not online!'
   noTimer: '&cCannot stop a timer since %player% does not have one!'
   hasTimer: '&cCannot start a timer since %player% already has one!'
+  notANumber: '&cThe ID must be an integer!'
 messages:
   timerStart: '&aStarted the timer for %player%'
   timerStop: '&cStopped the timer for %player%'
@@ -14,5 +15,6 @@ commandMessages:
   baseMessages:
     - '&7[&6PlayerTimers&7] &6%version% &7Author: &6Darrionat'
   help:
-    start: '&6/timer start [player] &7- Starts a timer for a player'
-    stop: '&6/timer stop [player] &7- Stops a timer for a player'
+    start: '&6/timer start [player] [id] &7- Starts a timer for a player'
+    stop: '&6/timer stop [player] [id] &7- Saves a timer for a player'
+    cancel: '&6/timer cancel [player] [id] &7- Cancels a timer for a player'

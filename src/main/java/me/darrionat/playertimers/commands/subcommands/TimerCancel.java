@@ -16,7 +16,7 @@ public class TimerCancel extends SubCommand {
 
 	@Override
 	public int getRequiredArgs() {
-		return 2;
+		return 3;
 	}
 
 	@Override
@@ -29,6 +29,7 @@ public class TimerCancel extends SubCommand {
 		return "cancel";
 	}
 
+	// /timer cancel [player] [id]
 	@Override
 	protected void runCommand(CommandSender sender, String[] args) {
 		Player target = Bukkit.getPlayer(args[1]);
@@ -37,11 +38,19 @@ public class TimerCancel extends SubCommand {
 			return;
 		}
 
+		int id;
+		try {
+			id = Integer.parseInt(args[2]);
+		} catch (NumberFormatException exe) {
+			messageService.notANumberErr(sender);
+			return;
+		}
+
 		UUID uuid = target.getUniqueId();
-		if (!timerService.playerHasTimer(uuid)) {
+		if (!timerService.playerHasTimer(uuid, id)) {
 			messageService.playerNoTimerErr(sender, target);
 			return;
 		}
-		timerService.cancelTimer(uuid);
+		timerService.cancelTimer(uuid, id);
 	}
 }

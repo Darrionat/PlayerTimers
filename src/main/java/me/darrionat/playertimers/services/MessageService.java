@@ -22,6 +22,7 @@ public class MessageService {
 	private static final String PLAYER_NOT_ONLINE = ERR_SECTION + "playerOffline";
 	private static final String PLAYER_NO_TIMER = ERR_SECTION + "noTimer";
 	private static final String PLAYER_HAS_TIMER = ERR_SECTION + "hasTimer";
+	private static final String NOT_A_NUMBER = ERR_SECTION + "notANumber";
 
 	private static final String MESSAGES_SECTION = "messages.";
 	private static final String TIMER_START = MESSAGES_SECTION + "timerStart";
@@ -85,6 +86,10 @@ public class MessageService {
 		sendMessage(sender, msg);
 	}
 
+	public void notANumberErr(CommandSender sender) {
+		sendMessage(sender, NOT_A_NUMBER);
+	}
+
 	public void sendBaseMessages(CommandSender sender) {
 		for (String s : messagesConfig.getStringList(BASE_MESSAGES)) {
 			s = s.replace("%version%", plugin.getDescription().getVersion());
@@ -107,5 +112,4 @@ public class MessageService {
 	public String getMessage(String path) {
 		return messagesConfig.getString(path);
 	}
-
 }

@@ -35,25 +35,35 @@ public class TimesConfigRepository {
 		fileRepository.saveConfigFile(FileRepository.TIMES, timesConfig);
 	}
 
-	public List<PlayerTimer> getAllSavedTimes() {
-		List<PlayerTimer> times = new ArrayList<PlayerTimer>();
-
-		for (String key : timesConfig.getKeys(false))
-			for (long duration : timesConfig.getLongList(key))
-				times.add(new PlayerTimer(UUID.fromString(key), duration));
-
-		return times;
-	}
-
-	public void savePlayerTime(UUID uuid, long duration) {
-		String uuidStr = uuid.toString();
+	public void savePlayerTime(PlayerTimer timer) {
+		String uuidStr = timer.getPlayer().toString();
 		List<Long> timesToSave = new ArrayList<Long>();
 
 		for (long savedTime : timesConfig.getLongList(uuidStr))
 			timesToSave.add(savedTime);
 
-		timesToSave.add(duration);
-		timesConfig.set(uuidStr, timesToSave);
+		timesToSave.add(timer.getDuration());
+		timesConfig.set(uuidStr + "." + timer.getId(), timesToSave);
 		fileRepository.saveConfigFile(FileRepository.TIMES, timesConfig);
+	}
+
+	/**
+	 * Gets the saved times for a particular timer
+	 * 
+	 * @param id the id of the timer
+	 * @return returns all saved times for a certain timer
+	 */
+	public List<PlayerTimer> getSavedTimes(int id) {
+		List<PlayerTimer> times = new ArrayList<PlayerTimer>();
+
+		// UUIDs
+		for (String key : timesConfig.getKeys(false))
+			// Different timers
+			for (String savedId : timesConfig.getConfigurationSection(key).getKeys(false))
+				if (savedId.equals(String.valueOf((id))))
+					// Timer's List
+					for (long duration : timesConfig.getLongList(savedId))
+						times.add(new PlayerTimer(UUID.fromString(key), id, duration));
+		return times;
 	}
 }
