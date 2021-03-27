@@ -48,6 +48,24 @@ public class TimesConfigRepository {
 	}
 
 	/**
+	 * Gets all saved timers.
+	 * 
+	 * @return returns all saved times.
+	 */
+	public List<PlayerTimer> getAllSavedTimes() {
+		List<PlayerTimer> times = new ArrayList<PlayerTimer>();
+
+		// UUIDs
+		for (String key : timesConfig.getKeys(false))
+			// Different timers
+			for (String savedId : timesConfig.getConfigurationSection(key).getKeys(false))
+				// Timer's List
+				for (long duration : timesConfig.getLongList(key + "." + savedId))
+					times.add(new PlayerTimer(UUID.fromString(key), Integer.parseInt(savedId), duration));
+		return times;
+	}
+
+	/**
 	 * Gets the saved times for a particular timer
 	 * 
 	 * @param id the id of the timer
@@ -55,15 +73,10 @@ public class TimesConfigRepository {
 	 */
 	public List<PlayerTimer> getSavedTimes(int id) {
 		List<PlayerTimer> times = new ArrayList<PlayerTimer>();
-
-		// UUIDs
-		for (String key : timesConfig.getKeys(false))
-			// Different timers
-			for (String savedId : timesConfig.getConfigurationSection(key).getKeys(false))
-				if (savedId.equals(String.valueOf((id))))
-					// Timer's List
-					for (long duration : timesConfig.getLongList(savedId))
-						times.add(new PlayerTimer(UUID.fromString(key), id, duration));
+		for (PlayerTimer timer : getAllSavedTimes()) {
+			if (timer.getId() == id)
+				times.add(timer);
+		}
 		return times;
 	}
 }
